@@ -1,49 +1,48 @@
-function search() {
-  const movieName = document.getElementById("input").value.trim();
-  const movieCard = document.getElementById("movieCard");
+function search()
+{
+    let inputTag = document.getElementById("input")
+    let movieName = inputTag.value
 
-  // Always hide card before new search
-  movieCard.classList.add("hidden");
+    //2329d79a
 
-  if (!movieName) {
-    alert("Please enter a movie name.");
-    return;
-  }
+    let htmlRequest = new XMLHttpRequest()
 
-  const url = `https://www.omdbapi.com/?apikey=2329d79a&t=${encodeURIComponent(movieName)}`;
+    let url = "https://www.omdbapi.com/?apikey=2329d79a&t=" + encodeURIComponent(movieName);
 
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.Response === "False") {
-        alert("Movie not found. Please try again.");
-        return;
-      }
+    htmlRequest.open("GET", url)
 
-      // Fill in the data
-      document.getElementById("poster").src = data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/300x450?text=Poster+Not+Available";
-      document.getElementById("title").textContent = data.Title;
-      document.getElementById("year").textContent = data.Year;
-      document.getElementById("rated").textContent = data.Rated;
-      document.getElementById("released").textContent = data.Released;
-      document.getElementById("runtime").textContent = data.Runtime;
-      document.getElementById("genre").textContent = data.Genre;
-      document.getElementById("director").textContent = data.Director;
-      document.getElementById("writer").textContent = data.Writer;
-      document.getElementById("actors").textContent = data.Actors;
-      document.getElementById("plot").textContent = data.Plot;
-      document.getElementById("language").textContent = data.Language;
-      document.getElementById("country").textContent = data.Country;
-      document.getElementById("rating").textContent = data.imdbRating;
-      document.getElementById("metascore").textContent = data.Metascore;
-      document.getElementById("awards").textContent = data.Awards;
-      document.getElementById("boxoffice").textContent = data.BoxOffice;
+    htmlRequest.send()
 
-      // ✅ Show movie card now that data is available
-      movieCard.classList.remove("hidden");
-    })
-    .catch(error => {
-      console.error("Fetch error:", error);
-      alert("An error occurred while fetching movie data.");
-    });
+    htmlRequest.responseType = "json"
+
+    htmlRequest.onload = ()=>{
+        let response = htmlRequest.response
+        console.log(response)
+
+        let imgTag = document.getElementById("poster")
+        imgTag.src = response.Poster
+
+        // ✅ Update all details
+        document.getElementById("title").textContent = response.Title
+        document.getElementById("year").textContent = response.Year
+        document.getElementById("rated").textContent = response.Rated
+        document.getElementById("released").textContent = response.Released
+        document.getElementById("runtime").textContent = response.Runtime
+        document.getElementById("genre").textContent = response.Genre
+        document.getElementById("director").textContent = response.Director
+        document.getElementById("writer").textContent = response.Writer
+        document.getElementById("actors").textContent = response.Actors
+        document.getElementById("plot").textContent = response.Plot
+        document.getElementById("language").textContent = response.Language
+        document.getElementById("country").textContent = response.Country
+        document.getElementById("awards").textContent = response.Awards
+        document.getElementById("boxoffice").textContent = response.BoxOffice
+        document.getElementById("production").textContent = response.Production
+        document.getElementById("dvd").textContent = response.DVD
+        document.getElementById("type").textContent = response.Type
+        document.getElementById("website").textContent = response.Website
+        document.getElementById("rating").textContent = response.imdbRating
+        document.getElementById("votes").textContent = response.imdbVotes
+        document.getElementById("metascore").textContent = response.Metascore
+    }
 }

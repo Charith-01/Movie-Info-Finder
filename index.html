@@ -7,130 +7,42 @@
   <script src="index.js" defer></script>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Animate.css CDN for animations -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
-<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center p-6 font-sans">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
 
-  <h1 class="text-4xl font-bold mb-8 text-white mt-6 animate__animated animate__fadeInDown">
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">🎬 Movie Info Finder</span>
-  </h1>
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">🎬 Movie Info Finder</h1>
 
-  <div class="flex gap-4 w-full max-w-2xl mb-8 animate__animated animate__fadeIn animate__delay-1s">
-    <input 
-      id="input" 
-      placeholder="Enter movie name..." 
-      class="flex-grow p-4 border-2 border-gray-700 rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500/50 bg-gray-800 text-white placeholder-gray-400 transition-all duration-300 hover:border-blue-500" 
-    />
-    <button 
-      onclick="search()" 
-      class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 font-medium"
-    >
-      Search
-    </button>
+  <div class="flex gap-4 w-full max-w-xl mb-8">
+    <input id="input" placeholder="Enter movie name..." class="flex-grow p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <button onclick="search()" class="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition">Search</button>
   </div>
 
-  <div id="movieCard" class="hidden max-w-4xl w-full bg-gray-800/80 backdrop-blur-sm shadow-2xl rounded-2xl p-8 md:flex gap-8 text-white border border-gray-700 animate__animated animate__fadeInUp animate__delay-1s">
-    <img 
-      id="poster" 
-      class="w-72 h-auto rounded-xl shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl" 
-      alt="Movie Poster"
-      onerror="this.src='https://via.placeholder.com/300x450?text=Poster+Not+Available'"
-    />
+  <div id="movieCard" class="hidden max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 md:flex gap-6">
+    <img id="poster" class="w-64 h-auto rounded-lg shadow-md" alt="Movie Poster"/>
 
-    <div class="flex flex-col gap-3 flex-1 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
-      <h2 id="title" class="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"></h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Year:</p>
-          <p id="year" class="text-white"></p>
-        </div>
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Rated:</p>
-          <p id="rated" class="text-white"></p>
-        </div>
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Released:</p>
-          <p id="released" class="text-white"></p>
-        </div>
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Runtime:</p>
-          <p id="runtime" class="text-white"></p>
-        </div>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Genre:</p>
-        <p id="genre" class="text-white"></p>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Director:</p>
-        <p id="director" class="text-white"></p>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Writer:</p>
-        <p id="writer" class="text-white"></p>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Actors:</p>
-        <p id="actors" class="text-white"></p>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Plot:</p>
-        <p id="plot" class="text-white italic"></p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Language:</p>
-          <p id="language" class="text-white"></p>
-        </div>
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Country:</p>
-          <p id="country" class="text-white"></p>
-        </div>
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">IMDB Rating:</p>
-          <p id="rating" class="text-white"></p>
-        </div>
-        <div class="bg-gray-700/50 p-4 rounded-lg">
-          <p class="text-blue-300 font-semibold">Metascore:</p>
-          <p id="metascore" class="text-white"></p>
-        </div>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Awards:</p>
-        <p id="awards" class="text-white"></p>
-      </div>
-      
-      <div class="bg-gray-700/50 p-4 rounded-lg">
-        <p class="text-blue-300 font-semibold">Box Office:</p>
-        <p id="boxoffice" class="text-white"></p>
-      </div>
+    <div class="flex flex-col gap-2 text-gray-800">
+      <h2 id="title" class="text-2xl font-bold"></h2>
+      <p><strong>Year:</strong> <span id="year"></span></p>
+      <p><strong>Rated:</strong> <span id="rated"></span></p>
+      <p><strong>Released:</strong> <span id="released"></span></p>
+      <p><strong>Runtime:</strong> <span id="runtime"></span></p>
+      <p><strong>Genre:</strong> <span id="genre"></span></p>
+      <p><strong>Director:</strong> <span id="director"></span></p>
+      <p><strong>Writer:</strong> <span id="writer"></span></p>
+      <p><strong>Actors:</strong> <span id="actors"></span></p>
+      <p><strong>Plot:</strong> <span id="plot"></span></p>
+      <p><strong>Language:</strong> <span id="language"></span></p>
+      <p><strong>Country:</strong> <span id="country"></span></p>
+      <p><strong>Awards:</strong> <span id="awards"></span></p>
+      <p><strong>Box Office:</strong> <span id="boxoffice"></span></p>
+      <p><strong>Production:</strong> <span id="production"></span></p>
+      <p><strong>DVD:</strong> <span id="dvd"></span></p>
+      <p><strong>Type:</strong> <span id="type"></span></p>
+      <p><strong>Website:</strong> <span id="website"></span></p>
+      <p><strong>IMDB Rating:</strong> <span id="rating"></span></p>
+      <p><strong>IMDB Votes:</strong> <span id="votes"></span></p>
+      <p><strong>Metascore:</strong> <span id="metascore"></span></p>
     </div>
   </div>
-
-  <style>
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(99, 102, 241, 0.5);
-      border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: rgba(99, 102, 241, 0.8);
-    }
-  </style>
 </body>
 </html>
