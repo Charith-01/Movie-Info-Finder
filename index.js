@@ -2,6 +2,9 @@ function search() {
   const movieName = document.getElementById("input").value.trim();
   const movieCard = document.getElementById("movieCard");
 
+  // Always hide card before new search
+  movieCard.classList.add("hidden");
+
   if (!movieName) {
     alert("Please enter a movie name.");
     return;
@@ -14,11 +17,10 @@ function search() {
     .then(data => {
       if (data.Response === "False") {
         alert("Movie not found. Please try again.");
-        movieCard.classList.add("hidden");
         return;
       }
 
-      // Populate movie details
+      // Fill in the data
       document.getElementById("poster").src = data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/300x450?text=Poster+Not+Available";
       document.getElementById("title").textContent = data.Title;
       document.getElementById("year").textContent = data.Year;
@@ -37,11 +39,11 @@ function search() {
       document.getElementById("awards").textContent = data.Awards;
       document.getElementById("boxoffice").textContent = data.BoxOffice;
 
-      // Show the movie card
+      // ✅ Show movie card now that data is available
       movieCard.classList.remove("hidden");
     })
     .catch(error => {
-      console.error("Error fetching movie data:", error);
-      alert("An error occurred. Please try again.");
+      console.error("Fetch error:", error);
+      alert("An error occurred while fetching movie data.");
     });
 }
