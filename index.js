@@ -19,6 +19,9 @@ function search()
         let response = htmlRequest.response
         console.log(response)
 
-        
+        let imgTag = document.getElementById("poster")
+        imgTag.src = response.Poster
+
+        document.getElementById("title").textContent = response.Title
 
 }
