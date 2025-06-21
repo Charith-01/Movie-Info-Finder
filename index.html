@@ -8,40 +8,79 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+<body class="bg-gradient-to-br from-gray-900 to-blue-900 min-h-screen flex flex-col items-center p-6">
+  <div class="w-full max-w-6xl">
+    <h1 class="text-4xl font-bold mb-8 text-center text-white drop-shadow-lg">🎬 Movie Info Finder</h1>
 
-  <h1 class="text-3xl font-bold mb-6 text-gray-800">🎬 Movie Info Finder</h1>
+    <div class="flex gap-4 w-full max-w-2xl mx-auto mb-10">
+      <input 
+        id="input" 
+        placeholder="Enter movie name..." 
+        class="flex-grow p-4 border-2 border-blue-400 rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500 text-gray-800 font-medium text-lg" 
+      />
+      <button 
+        onclick="search()" 
+        class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-4 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl font-bold text-lg transform hover:scale-105"
+      >
+        Search
+      </button>
+    </div>
 
-  <div class="flex gap-4 w-full max-w-xl mb-8">
-    <input id="input" placeholder="Enter movie name..." class="flex-grow p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-    <button onclick="search()" class="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition">Search</button>
-  </div>
+    <div id="movieCard" class="hidden max-w-6xl w-full bg-white/90 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
+      <div class="md:flex gap-8 p-8">
+        <img 
+          id="poster" 
+          class="w-72 h-auto rounded-xl shadow-xl border-4 border-white transform hover:scale-105 transition duration-300" 
+          alt="Movie Poster"
+        />
 
-  <div id="movieCard" class="hidden max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 md:flex gap-6">
-    <img id="poster" class="w-64 h-auto rounded-lg shadow-md" alt="Movie Poster"/>
+        <div class="flex flex-col gap-3 text-gray-800 mt-6 md:mt-0">
+          <h2 id="title" class="text-3xl font-bold text-blue-800 mb-2"></h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold text-blue-700">📅 <strong>Year:</strong> <span id="year" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">⭐ <strong>Rated:</strong> <span id="rated" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🎬 <strong>Released:</strong> <span id="released" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">⏱️ <strong>Runtime:</strong> <span id="runtime" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🎭 <strong>Genre:</strong> <span id="genre" class="font-normal"></span></p>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold text-blue-700">🎥 <strong>Director:</strong> <span id="director" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">✍️ <strong>Writer:</strong> <span id="writer" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🌟 <strong>Actors:</strong> <span id="actors" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🌐 <strong>Language:</strong> <span id="language" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">📍 <strong>Country:</strong> <span id="country" class="font-normal"></span></p>
+            </div>
+          </div>
 
-    <div class="flex flex-col gap-2 text-gray-800">
-      <h2 id="title" class="text-2xl font-bold"></h2>
-      <p><strong>Year:</strong> <span id="year"></span></p>
-      <p><strong>Rated:</strong> <span id="rated"></span></p>
-      <p><strong>Released:</strong> <span id="released"></span></p>
-      <p><strong>Runtime:</strong> <span id="runtime"></span></p>
-      <p><strong>Genre:</strong> <span id="genre"></span></p>
-      <p><strong>Director:</strong> <span id="director"></span></p>
-      <p><strong>Writer:</strong> <span id="writer"></span></p>
-      <p><strong>Actors:</strong> <span id="actors"></span></p>
-      <p><strong>Plot:</strong> <span id="plot"></span></p>
-      <p><strong>Language:</strong> <span id="language"></span></p>
-      <p><strong>Country:</strong> <span id="country"></span></p>
-      <p><strong>Awards:</strong> <span id="awards"></span></p>
-      <p><strong>Box Office:</strong> <span id="boxoffice"></span></p>
-      <p><strong>Production:</strong> <span id="production"></span></p>
-      <p><strong>DVD:</strong> <span id="dvd"></span></p>
-      <p><strong>Type:</strong> <span id="type"></span></p>
-      <p><strong>Website:</strong> <span id="website"></span></p>
-      <p><strong>IMDB Rating:</strong> <span id="rating"></span></p>
-      <p><strong>IMDB Votes:</strong> <span id="votes"></span></p>
-      <p><strong>Metascore:</strong> <span id="metascore"></span></p>
+          <div class="mt-4 bg-blue-50 p-4 rounded-lg">
+            <p class="font-semibold text-blue-700">📖 <strong>Plot:</strong></p>
+            <p id="plot" class="mt-2 italic"></p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold text-blue-700">🏆 <strong>Awards:</strong> <span id="awards" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">💰 <strong>Box Office:</strong> <span id="boxoffice" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🏭 <strong>Production:</strong> <span id="production" class="font-normal"></span></p>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold text-blue-700">📀 <strong>DVD:</strong> <span id="dvd" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🔖 <strong>Type:</strong> <span id="type" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🌍 <strong>Website:</strong> <span id="website" class="font-normal"></span></p>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold text-blue-700">⭐ <strong>IMDB Rating:</strong> <span id="rating" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">🗳️ <strong>IMDB Votes:</strong> <span id="votes" class="font-normal"></span></p>
+              <p class="font-semibold text-blue-700">📊 <strong>Metascore:</strong> <span id="metascore" class="font-normal"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
